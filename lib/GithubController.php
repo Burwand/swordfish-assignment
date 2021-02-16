@@ -66,9 +66,6 @@ class GithubController {
 
         } catch (ClientException $e)
         {
-            echo $e->getResponse()->getStatusCode().'<br>';
-            echo $e->getResponse()->getBody().'<br>';
-
             return [];
         }
 
