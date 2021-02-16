@@ -1,0 +1,10 @@
+version: '3.5'
+services:
+
+  swordfish:
+    build: './php-apache/'
+    container_name: Swordfish
+    volumes:
+      - ../:/var/www/html/Swordfish
+    ports:
+      - 8080:80

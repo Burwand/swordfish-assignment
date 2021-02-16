@@ -42,11 +42,13 @@ class GithubController {
                     'code' => $code
                 ]]);
             $token = json_decode($res->getBody());
-            if(isset($token->access_token))
+            if (isset($token->access_token))
                 return $token->access_token;
+
             return false;
         } catch (ClientException $e)
         {
+            $this->logError($e);
             return false;
         }
     }
@@ -62,10 +64,12 @@ class GithubController {
                     'Accept' => 'application/vnd.github.v3+json'
                 ],
             ]);
+
             return json_decode($res->getBody());
 
         } catch (ClientException $e)
         {
+            $this->logError($e);
             return [];
         }
 
@@ -75,8 +79,7 @@ class GithubController {
     {
         try
         {
-            $client = new Client();
-            $res = $client->request('POST', "https://api.github.com/repos/{$this->owner}/{$this->repo}/issues", [
+            $res = $this->client->request('POST', "https://api.github.com/repos/{$this->owner}/{$this->repo}/issues", [
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'Authorization' => 'Bearer ' . $_SESSION["token"],
@@ -95,21 +98,35 @@ class GithubController {
             return ["status" => $res->getStatusCode(), 'message' => 'Issues was created successfully'];
         } catch (ClientException $e)
         {
+            $this->logError($e);
             return ["status" => 400, 'message' => 'There was a problem, please try again later'];
         }
     }
 
     public function getLabels()
     {
-        $client = new Client();
-        $res = $client->request('GET', "https://api.github.com/repos/{$this->owner}/{$this->repo}/labels", [
-            'headers' => [
-                'Content-Type' => 'application/json',
-                'Authorization' => 'Bearer ' . $_SESSION["token"],
-                'Accept' => 'application/vnd.github.v3+json'
-            ],
-        ]);
+        try
+        {
+            $res = $this->client->request('GET', "https://api.github.com/repos/{$this->owner}/{$this->repo}/labels", [
+                'headers' => [
+                    'Content-Type' => 'application/json',
+                    'Authorization' => 'Bearer ' . $_SESSION["token"],
+                    'Accept' => 'application/vnd.github.v3+json'
+                ],
+            ]);
 
-        return json_decode($res->getBody());
+            return json_decode($res->getBody());
+        } catch (ClientException $e)
+        {
+            $this->logError($e);
+            return [];
+        }
+    }
+
+    private function logError(ClientException $e){
+        if ($e->getResponse()->getStatusCode() == 401)
+            $_SESSION["token"] = false;
+        error_log($e->getResponse()->getStatusCode());
+        error_log($e->getResponse()->getBody());
     }
 }

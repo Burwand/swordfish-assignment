@@ -12,6 +12,6 @@ if (isset($_GET["code"]) && ! empty($_GET["code"]))
 }
 
 if ( ! isset($_SESSION["token"]) || empty($_SESSION["token"]))
-    header("location: https://github.com/login/oauth/authorize?client_id={$git->clientId}&allow_signup=false&scope=user,public_repo");
+    header("location: https://github.com/login/oauth/authorize?client_id={$git->clientId}&allow_signup=false&scope=repo");
 
 $smarty->display('index.tpl');

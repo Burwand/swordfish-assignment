@@ -32,7 +32,3 @@ foreach ($issues as $issue)
     array_push($issueList, $item);
 }
 echo json_encode(["data" => $issueList]);
-
-function dd($data){
-    echo '<pre>' . var_export($data, true) . '</pre>';
-}
