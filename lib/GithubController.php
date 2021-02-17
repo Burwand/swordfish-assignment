@@ -58,7 +58,7 @@ class GithubController {
 //        echo $_SESSION["token"];
         try
         {
-            $res = $this->client->request('GET', "https://api.github.com/repos/{$this->owner}/{$this->repo}/issues?filter=all&per_page=1000&sort=created", [
+            $res = $this->client->request('GET', "https://api.github.com/repos/{$this->owner}/{$this->repo}/issues?filter=all&per_page=1000&sort=created&&state=all", [
                 'headers' => [
                     'Content-Type' => 'application/json',
                     'Authorization' => 'Bearer ' . $_SESSION["token"],
