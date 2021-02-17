@@ -98,7 +98,7 @@ $(document).ready(function () {
         );
 
         $(' #form select').each(
-            $(this).val('')
+            $(this).val('null')
         );
     }
 });
