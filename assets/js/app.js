@@ -34,7 +34,7 @@ $(document).ready(function () {
                     $('#alert').html(data.message);
                     $('#alert').show();
                     $('#exampleModalCenter').modal('toggle');
-                    //Todo: Append Data to Table
+                    resetState();
                     redraw_datatable(table);
                 }
             });
@@ -90,5 +90,13 @@ $(document).ready(function () {
             }
         );
         return valid;
+    }
+
+    function resetState() {
+        $('#form input, #form select, #form textarea').each(
+            function (index) {
+                $(this).val('');
+            }
+        );
     }
 });
