@@ -94,11 +94,14 @@ $(document).ready(function () {
 
     function resetState() {
         $('#form input, #form textarea').each(
-            $(this).val('')
+            function () {
+                $(this).val('');
+            }
         );
-
         $(' #form select').each(
-            $(this).val('null')
+            function () {
+                $(this).val('null');
+            }
         );
     }
 });
