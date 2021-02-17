@@ -80,7 +80,7 @@ $(document).ready(function () {
     function checkForm() {
         let valid = true;
         $('#form input, #form select, #form textarea').each(
-            function (index) {
+            function () {
                 if ($(this).val().trim() === '' || $(this).val() === 'null') {
                     $(this).removeClass("is-valid").addClass("is-invalid");
                     valid = false;
@@ -93,10 +93,12 @@ $(document).ready(function () {
     }
 
     function resetState() {
-        $('#form input, #form select, #form textarea').each(
-            function (index) {
-                $(this).val('');
-            }
+        $('#form input, #form textarea').each(
+            $(this).val('')
+        );
+
+        $(' #form select').each(
+            $(this).val('')
         );
     }
 });
