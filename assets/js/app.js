@@ -25,6 +25,7 @@ $(document).ready(function () {
                 url: './ajax/CreateIssue.php',
                 data: form.serialize(), // serializes the form's elements.
                 success: function (data) {
+                    console.log(data);
                     data = JSON.parse(data);
                     if (data.status == '201') {
                         $('#alert').removeClass("alert-danger").addClass("alert-success");
