@@ -69,6 +69,8 @@ class GithubController {
 
         } catch (ClientException $e)
         {
+            $body = json_decode($e->getResponse()->getBody());
+            header("HTTP/1.0 {$e->getResponse()->getStatusCode()} {$this->owner}/{$this->repo}: ".$body->message);
             $this->logError($e);
             return [];
         }

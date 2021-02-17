@@ -48,34 +48,43 @@ $(document).ready(function () {
         }
 
         table = $('#example').DataTable({
-            "ajax": "./ajax/Issues.php",
-            "columns": [
-                {
-                    "data": "title"
+                "ajax": {
+                    url: "./ajax/Issues.php",
+                    error: function (xhr, error, code) {
+                        $('#alert').removeClass("alert-success").addClass("alert-danger");
+                        $('#alert').html(code);
+                        $('#alert').show();
+                    }
                 },
-                {
-                    "data": "body"
-                },
-                {
-                    "data": "client",
-                    "defaultContent": "Not set"
-                },
-                {
-                    "data": "priority",
-                    "defaultContent": "Not set"
-                },
-                {
-                    "data": "type",
-                    "defaultContent": "Not set"
-                },
-                {
-                    "data": "user"
-                },
-                {
-                    "data": "state"
-                },
-            ]
-        });
+                // "ajax": "./ajax/Issues.php",
+                "columns": [
+                    {
+                        "data": "title"
+                    },
+                    {
+                        "data": "body"
+                    },
+                    {
+                        "data": "client",
+                        "defaultContent": "Not set"
+                    },
+                    {
+                        "data": "priority",
+                        "defaultContent": "Not set"
+                    },
+                    {
+                        "data": "type",
+                        "defaultContent": "Not set"
+                    },
+                    {
+                        "data": "user"
+                    },
+                    {
+                        "data": "state"
+                    },
+                ]
+
+            });
     }
 
     function checkForm() {
